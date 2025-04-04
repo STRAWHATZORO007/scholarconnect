@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scholar Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .buttons a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: #28a745;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .buttons a:hover {
+            background-color: #218838;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Scholar Connect</div> <!-- Logo on the left -->
+        <div class="buttons">
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Welcome to Scholar Connect</h1>
+    </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Connection Requests</h2>
+<ul>
+    {% for request in received_requests %}
+    <li>
+        <p>Request from {{ request.sender.username }}</p>
+        <form action="{{ url_for('accept_request', request_id=request.id) }}" method="POST">
+            <button type="submit">Accept</button>
+        </form>
+        <form action="{{ url_for('reject_request', request_id=request.id) }}" method="POST">
+            <button type="submit">Reject</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
