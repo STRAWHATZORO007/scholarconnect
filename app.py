@@ -359,5 +359,12 @@ def modify_submission(paper_id):
     return render_template('modify_submission.html', paper=paper, categories=CATEGORIES)
 
 # Main entry point
+import os
+
+# Main entry point
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Use the PORT environment variable if available (Render sets this)
+    port = int(os.environ.get('PORT', 5000))
+
+    # Run the Flask app on 0.0.0.0 to make it externally visible
+    app.run(host='0.0.0.0', port=port, debug=True)
