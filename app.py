@@ -184,6 +184,32 @@ def edit_profile():
         return redirect(url_for('profile'))
 
     return render_template('edit_profile.html', user=current_user)
+@app.route('/admin/db-view')
+@login_required
+def admin_db_view():
+    if current_user.username != 'admin':  # Change this to your admin username
+        return "Access Denied", 403
+
+    users = User.query.all()
+    papers = Paper.query.all()
+    messages = ChatMessage.query.all()
+
+    html = "<h2>Users</h2><ul>"
+    for user in users:
+        html += f"<li>{user.id} - {user.username} ({user.email})</li>"
+    html += "</ul>"
+
+    html += "<h2>Papers</h2><ul>"
+    for paper in papers:
+        html += f"<li>{paper.id} - {paper.title} (User ID: {paper.user_id})</li>"
+    html += "</ul>"
+
+    html += "<h2>Messages</h2><ul>"
+    for msg in messages:
+        html += f"<li>From {msg.sender_id} to {msg.recipient_id}: {msg.message}</li>"
+    html += "</ul>"
+
+    return html
 
 # Route: Logout
 @app.route('/logout')
