@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Partners</title>
+    <style>
+        /* Styles for chat partners list */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        a {
+            text-decoration: none;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Chat Partners</h1>
+    <ul>
+        {% for partner in partners %}
+        <li>
+            {{ partner.username }}
+            <a href="{{ url_for('chat_inbox', recipient_id=partner.id) }}">Open Chat</a>
+        </li>
+        {% else %}
+        <li>No chat partners available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

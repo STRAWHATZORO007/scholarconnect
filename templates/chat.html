@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .chat-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+            clear: both;
+            position: relative;
+        }
+        .sent {
+            background-color: #d4f8d4;
+            color: black;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .received {
+            background-color: #e0e0e0;
+            color: black;
+            align-self: flex-start;
+            text-align: left;
+        }
+        .sender-name {
+            font-size: 0.7em; /* Reduced font size for sender name */
+            color: #555;
+            margin-top: 5px;
+            display: block;
+        }
+        .input-container {
+            display: flex;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with {{ recipient_user.username }}</h1>
+
+    <div class="chat-container">
+        <div class="messages" id="messages">
+            {% for message in messages %}
+                <div class="{% if message.sender_id == session['user_id'] %}message sent{% else %}message received{% endif %}">
+                    {{ message.message }}
+                    <small class="sender-name">
+                        {% if message.sender_id == session['user_id'] %}You{% else %}{{ message.sender.username }}{% endif %}
+                    </small>
+                </div>
+            {% endfor %}
+        </div>
+        <form method="POST" class="input-container">
+            <input type="text" id="messageInput" name="message" placeholder="Type your message..." aria-label="Type your message" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>
