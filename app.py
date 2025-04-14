@@ -15,8 +15,20 @@ app.secret_key = 'b5a1f4a2c79dbf57b20f02d0e01f5c92'
 bcrypt = Bcrypt(app)
 
 # SQLite Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/my database/sconnect.db'
+import os
+
+# Get the DATABASE_URL from environment (Render sets this automatically).
+# If not found, fallback to local SQLite file
+db_url = os.environ.get("DATABASE_URL", "sqlite:///sconnect.db")
+
+# Fix for SQLAlchemy: convert 'postgres://' to 'postgresql://'
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+# Set SQLAlchemy config
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 # Server-side session configuration
 app.config['SESSION_TYPE'] = 'filesystem'
